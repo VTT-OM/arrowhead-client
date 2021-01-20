@@ -1,2 +1,2 @@
 # arrowhead-client
-Simple clients for Arrowhead orhcestration, service registration and management.
+Simple clients for Arrowhead orchestration, service registration and management.
