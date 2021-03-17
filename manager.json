@@ -1,0 +1,9 @@
+{
+    "serviceRegistryUrl": "https://localhost:8443/serviceregistry",
+    "authorizationUrl": "https://localhost:8445/authorization",
+    "certificates": {
+        "certificate": "./certs/sysop.crt",
+        "key": "./certs/sysop.key",
+        "certificate_authority": "./certs/sysop.ca"
+    }
+}

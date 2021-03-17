@@ -1,0 +1,13 @@
+{
+    "arrowheadOrchestratorUrl": "https://localhost:8441/orchestrator",
+    "requesterSystem": {
+        "systemName": "consumer",
+        "address": "localhost",
+        "port": 8002
+    },
+    "certificates": {
+        "certificate": "./certs/consumer.crt",
+        "key": "./certs/consumer.key",
+        "certificate_authority": "./certs/consumer.ca"
+    }
+}

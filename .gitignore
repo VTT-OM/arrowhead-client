@@ -1,0 +1,14 @@
+.venv
+.vscode
+.winenv
+
+__pycache__
+
+*.key
+*.crt
+*.ca
+*.p12
+
+dist/
+*.whl
+*.egg-info

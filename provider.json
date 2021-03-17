@@ -1,0 +1,22 @@
+{
+    "serviceRegistryUrl": "https://localhost:8443/serviceregistry",
+    "providerSystem": {
+        "systemName": "provider",
+        "address": "localhost",
+        "port": 8001
+    },
+    "services": [
+        {
+            "serviceDefinition": "your_service",
+            "serviceUri": "/service",
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        }
+    ],
+    "certificates": {
+        "certificate": "./certs/provider.crt",
+        "key": "./certs/provider.key",
+        "certificate_authority": "./certs/provider.ca"
+    }
+}
