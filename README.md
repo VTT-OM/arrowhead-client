@@ -1,8 +1,6 @@
 # arrowhead-client <!-- omit in toc -->
 Simple clients for Arrowhead orchestration, service registration and management.
 
-### Coming soon. <!-- omit in toc -->
-
 
 ## Table of Contents <!-- omit in toc -->
 - [Installation](#installation)
