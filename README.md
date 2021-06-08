@@ -54,7 +54,7 @@ Create and edit a `./config/arrowhead_system.json` file containing the required 
 
 Some important notes for the configuration:
 - `systemName` field and the certificate `common_name` (usually same as filename) must be equal.
-- `systemName`, `address` and `port` must be unique within the Arrowhead cloud.
+- `systemName`, `address` and `port` combination must be unique within the Arrowhead cloud.
 - `certificate_authority` file is strongly recommended but not required. The client will default to not verifying servers if `certificate_authority` file is not found.
 
 ### Usage
