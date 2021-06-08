@@ -1,23 +1,19 @@
 # arrowhead-client <!-- omit in toc -->
-Simple clients for Arrowhead orchestration, service registration and management.
+Simple client for Arrowhead orchestration and service registration.
 
 
 ## Table of Contents <!-- omit in toc -->
 - [Installation](#installation)
   - [Python package](#python-package)
   - [Development](#development)
-- [Consumer](#consumer)
+- [Client](#client)
   - [Configuration](#configuration)
   - [Usage](#usage)
-- [Provider](#provider)
-  - [Configuration](#configuration-1)
-  - [Usage](#usage-1)
-- [Manager](#manager)
 
 
 ## Installation
 
-Requires `Python > 3.8`
+Requires `Python >= 3.8`
 
 ### Python package
 
@@ -33,112 +29,59 @@ From root folder install dependencies with:
     pip install -e .[dev]
 
 
-## Consumer
-Consumer is used to orchestrate with Arrowhead and consume the provided services.
+## Client
+Client is used to orchestrate with Arrowhead and register/unregister services.
 
 ### Configuration
-Create a `your_consumer.json` file containing the require consumer info etc. like so:
+Create and edit a `./config/arrowhead_system.json` file containing the required Arrowhead server URLs, system info and certificates:
 
     {
-        "arrowheadOrchestratorUrl": "https://domain:port/orchestrator",
-        "requesterSystem": {
-            "systemName": "your_consumer",
-            "address": "localhost",
-            "port": 2345
+        "arrowheadSettings": {
+            "orchestratorUrl": "https://<arrowhead-domain>:8441/orchestrator/",
+            "serviceregistryUrl": "https://<arrowhead-domain>:8443/serviceregistry/"
         },
         "certificates": {
-            "certificate": "./path/to/your_consumer.crt",
-            "key": "./path/to/your_consumer.key",
-            "certificate_authority": "./path/to/your_consumer.ca"
+            "certificate": "./certs/system.crt",
+            "key": "./certs/system.key",
+            "certificate_authority": "./certs/system.ca"
+        },
+        "system": {
+            "systemName": "system",
+            "address": "localhost",
+            "port": 1234
         }
     }
 
-If no certificates are given, the consumer will default to unsecured HTTP and MQTT interfaces when communicating with Arrowhead core systems and service providers.
+Some important notes for the configuration:
+- `systemName` field and the certificate `common_name` (usually same as filename) must be equal.
+- `systemName`, `address` and `port` must be unique within the Arrowhead cloud.
+- `certificate_authority` file is strongly recommended but not required. The client will default to not verifying servers if `certificate_authority` file is not found.
 
 ### Usage
-Create a consumer:
+**Create** a client:
 
-    from client import Consumer
-    consumer = Consumer("./path/to/your_consumer.json")
+    from ah_client import AHClient
+    client = AHClient("./config/arrowhead_system.json")
 
-Orchestrate for desired service registered on Arrowhead:
+**Orchestrate** for desired service registered on Arrowhead:
 
-    consumer.orchestrate("your_service")
+    session, service_url = client.orchestrate(service_definition="some_service")
 
-Depending on what interface the service uses, you may now use either HTTP(S) or MQTT(S):
+Orchestration returns a [requests `session`](https://docs.python-requests.org/en/master/user/advanced/#session-objects) with preset certificates and `service_url` for accessing the orchestrated service.
 
-HTTP(S):
+An example for consuming the service with the `session` and `service_url`:
 
-    response = consumer.http.get(consumer.http_service_url)
-                                or
-                            .post(consumer.http_service_url, data=data)
+    response = session.get(service_url)
 
-MQTT(S):
+**Register a service** with a `service_definition` and `service_uri_path`.
 
-    consumer.mqtt.publish("mqtt/topic", payload=data)
-                    or
-                 .on_message = on_message  # Callback function for subcriptions
-                 .subscribe("mqtt/topic")   
+    client.register_service(
+        service_definition="some_other_service",
+        service_uri_path="service/path"
+    )
 
-`consumer.http` is a Python requests session object with given certificates already set for TLS.  
-More on [Python requests and session here](https://requests.readthedocs.io).
+- `service_uri_path` is the path from where the service is accessible on this systems host `address` and `port` (as set in `arrowhead_system.json`)
 
-`consumer.mqtt` is a Python Paho mqtt client object with given certificates already set for TLS and connection to broker established.  
-More on [Python Paho MQTT client here](https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php).
+**Unregister a service**:
 
-
-## Provider
-
-Provider is used to register your services with Arrowhead.
-
-### Configuration
-
-Create a `your_provider.json` file containing the require provider info and services like so:
-
-    {
-        "serviceRegistryUrl": "https://domain:port/serviceregistry",
-        "providerSystem": {
-            "systemName": "your_provider",
-            "address": "localhost",
-            "port": 2345
-        },
-        "services": [
-            {
-                "serviceDefinition": "service_1",
-                "serviceUri": "service/1",
-                "interfaces": [
-                    "HTTPS-SECURE-JSON"
-                ]
-            }
-        ],
-        "certificates": {
-            "certificate": "./certs/your_provider.crt",
-            "key": "./certs/your_provider.key",
-            "certificate_authority": "./certs/your_provider.ca"
-        }
-    }
-
-If not certificates are given, the consumer will default to unsecured HTTP and MQTT interfaces with Arrowhead and service consumers.
-
-### Usage
-
-Create a provider:
-
-    from client import Provider
-    provider = Provider("./path/to/your_provider.json")
-
-Register configured services with Arrowhead:
-
-    provider.register_services()
-
-Your configured services should now be available on Arrowhead.  
-However, any consumer systems still need to be auhtorized to your services before consumption.
-
-Unregister configured services with Arrowhead:
-
-    provider.unregister_services()
-
-
-## Manager
-
-### Coming soon. <!-- omit in toc -->
+    client.unregister_service(service_definition="some_other_service")

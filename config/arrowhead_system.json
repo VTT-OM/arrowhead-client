@@ -1,0 +1,16 @@
+{
+    "arrowheadSettings": {
+        "orchestratorUrl": "https://<arrowhead-domain>:8441/orchestrator/",
+        "serviceregistryUrl": "https://<arrowhead-domain>:8443/serviceregistry/"
+    },
+    "certificates": {
+        "certificate": "./certs/consumer.crt",
+        "key": "./certs/consumer.key",
+        "certificate_authority": "./certs/consumer.ca"
+    },
+    "system": {
+        "systemName": "consumer",
+        "address": "localhost",
+        "port": 1234
+    }
+}

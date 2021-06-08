@@ -1,3 +1,2 @@
-from .consumer import Consumer
+from .client import AHClient
 from .manager import Manager
-from .provider import Provider

@@ -32,36 +32,6 @@ class Manager:
                 pass
         return False
 
-    def add_system(self, system):
-        """ Add system """
-
-        with requests.Session() as ses:
-            if self._secure:
-                ses.cert = (self.cert, self.key)
-                ses.verify = self.ca
-
-            response = ses.post(
-                f"{self.service_registry_url}/mgmt/systems", json=system
-            )
-            response.raise_for_status()
-
-        return response.json().get("id")
-
-    def delete_system(self, system_id: int):
-        """ Delete system """
-
-        with requests.Session() as ses:
-            if self._secure:
-                ses.cert = (self.cert, self.key)
-                ses.verify = self.ca
-
-            response = ses.delete(
-                f"{self.service_registry_url}/mgmt/systems/{system_id}"
-            )
-            response.raise_for_status()
-
-        return response.ok
-
     def authorize_system(self, system_id: int, service_definition: str):
         """ Authorize system for service """
 

@@ -4,11 +4,13 @@
 
 __pycache__
 
-*.key
-*.crt
-*.ca
-*.p12
 
 dist/
 *.whl
 *.egg-info
+
+old
+_*.py
+
+Pipfile
+Pipfile.lock

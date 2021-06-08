@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ah-client",
-    version="0.0.1",
+    version="0.2.0",
     author="Jani Hietala",
     author_email="jani.hietala@vtt.fi",
     description="Arrowhead client library",
@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/VTT-OM/arrowhead-client",
     packages=["ah_client"],
     license="MIT",
-    install_requires=["paho-mqtt", "requests"],
+    install_requires=["requests"],
     extras_require={"dev": ["black", "pylint", "pycodestyle", "wheel"]},
     python_requires=">=3.8",
 )
