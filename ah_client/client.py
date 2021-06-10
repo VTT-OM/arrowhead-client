@@ -85,7 +85,7 @@ class AHClient:
 
         logging.info("Registering system to Arrowhead")
 
-        with requests.Session as session:
+        with requests.Session() as session:
             # Set certificates
             if None not in (self.certs, self.key):
                 session.cert = (self.cert, self.key)
@@ -191,7 +191,7 @@ class AHClient:
 
         logging.info("Registering service to Arrowhead")
 
-        with requests.Session as session:
+        with requests.Session() as session:
 
             # Set certificates
             if None not in (self.certs, self.key):
@@ -216,7 +216,7 @@ class AHClient:
 
         logging.info("Unregistering service from Arrowhead")
 
-        with requests.Session as session:
+        with requests.Session() as session:
 
             # Set certificates
             if None not in (self.certs, self.key):
