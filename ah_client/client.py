@@ -166,7 +166,8 @@ class AHClient:
             port = f":{service['provider']['port']}"
         service_url = f"https://{service['provider']['address']}{port}"
         # Append service path to service url
-        service_url = f"{service_url}/{service['serviceUri']}"
+        service_path = service.get("serviceUri") or ""
+        service_url = f"{service_url}/{service_path}"
 
         return session, service_url
 
