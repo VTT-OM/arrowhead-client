@@ -231,6 +231,6 @@ class AHClient:
                 "service_definition": service_definition,
             }
             response = session.delete(
-                f"{self.service_registry_url}unregister/", params=params
+                f"{self.serviceregistry_url}unregister/", params=params
             )
             logging.info(response.text)
