@@ -207,7 +207,7 @@ class AHClient:
             service["serviceDefinition"] = service_definition
             service["serviceUri"] = service_uri_path
             response = session.post(
-                f"{self.serviceregistry_url}/register",
+                f"{self.serviceregistry_url}register/",
                 json=service,
             )
             logging.info(response.text)
@@ -231,6 +231,6 @@ class AHClient:
                 "service_definition": service_definition,
             }
             response = session.delete(
-                f"{self.service_registry_url}/unregister", params=params
+                f"{self.service_registry_url}unregister/", params=params
             )
             logging.info(response.text)
