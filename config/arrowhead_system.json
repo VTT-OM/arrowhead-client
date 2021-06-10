@@ -4,12 +4,12 @@
         "serviceregistryUrl": "https://<arrowhead-domain>:8443/serviceregistry/"
     },
     "certificates": {
-        "certificate": "./certs/consumer.crt",
-        "key": "./certs/consumer.key",
-        "certificate_authority": "./certs/consumer.ca"
+        "certificate": "./certs/system.crt",
+        "key": "./certs/system.key",
+        "certificate_authority": "./certs/system.ca"
     },
     "system": {
-        "systemName": "consumer",
+        "systemName": "system",
         "address": "localhost",
         "port": 1234
     }
