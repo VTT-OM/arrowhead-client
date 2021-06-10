@@ -87,7 +87,7 @@ class AHClient:
 
         with requests.Session() as session:
             # Set certificates
-            if None not in (self.certs, self.key):
+            if None not in (self.cert, self.key):
                 session.cert = (self.cert, self.key)
                 session.verify = self.verify
 
@@ -128,7 +128,7 @@ class AHClient:
         session.headers.update({"Connection": "close"})
 
         # Set certificates
-        if None not in (self.certs, self.key):
+        if None not in (self.cert, self.key):
             session.cert = (self.cert, self.key)
             session.verify = self.verify
 
@@ -194,7 +194,7 @@ class AHClient:
         with requests.Session() as session:
 
             # Set certificates
-            if None not in (self.certs, self.key):
+            if None not in (self.cert, self.key):
                 session.cert = (self.cert, self.key)
                 session.verify = self.verify
 
@@ -219,7 +219,7 @@ class AHClient:
         with requests.Session() as session:
 
             # Set certificates
-            if None not in (self.certs, self.key):
+            if None not in (self.cert, self.key):
                 session.cert = (self.cert, self.key)
                 session.verify = self.verify
 
