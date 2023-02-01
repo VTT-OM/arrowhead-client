@@ -17,7 +17,7 @@ Requires `Python >= 3.8`
 
 ### Python package
 
-    pip install git+https://github.com/VTT-OM/arrowhead-client.git#egg=ah-client
+    pip install git+https://github.com/vtt-scp/arrowhead-client.git#egg=ah-client
 
 ### Development
 Clone the repository to your device:
